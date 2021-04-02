@@ -81,5 +81,39 @@ class ResnetBlock(nn.Module):
 
 
 class Discriminator(nn.Module):
+    def __init__(self, input_cns, norm_layer=nn.InstanceNorm2d):
+        super(Discriminator, self).__init__()
+
+
+        sequence = [nn.Conv2d(input_cns, 64, 4, stride=2, padding=0),
+                        nn.LeakyReLU(0.2, True),
+                        
+                        nn.Conv2d(64, 128, 4, 2, 0),
+                        nn.InstanceNorm2d(128),
+                        nn.LeakyReLU(0.2, True),
+
+                        nn.Conv2d(128, 256, 4, 2, 0),
+                        nn.InstanceNorm2d(256),
+                        nn.LeakyReLU(0.2, True),
+
+                        nn.Conv2d(256, 512, 4, 2, 0),
+                        nn.InstanceNorm2d(512),
+                        nn.LeakyReLU(0.2, True),
+
+                        nn.Conv2d(512, 512, 4, 2, 0),
+                        nn.InstanceNorm2d(512),
+                        nn.LeakyReLU(0.2, True),
+
+                        nn.Conv2d(512, 1, 4, 2, 0)                       
+                        ]
+        self.model = nn.Sequential(*sequence)
+    
+    def forward(self, input):
+        return self.model(input)
+
+
+
+class 
+
     
 
